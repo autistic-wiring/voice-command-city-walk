@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A sensory-friendly voice-controlled animation game for non-verbal users">
+  <title>Voice Animation Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sky and scene -->
+    <div class="scene">
+      <!-- Clouds -->
+      <div class="clouds">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      
+      <!-- Sun -->
+      <div class="sun"></div>
+      
+      <!-- Ground/Street -->
+      <div class="ground">
+        <div class="street"></div>
+        <div class="grass grass-back"></div>
+        <div class="grass grass-front"></div>
+      </div>
+      
+      <!-- Character -->
+      <div class="character-container">
+        <div id="character" class="character idle">
+          <div class="character-body">
+            <div class="head">
+              <div class="face">
+                <div class="eyes">
+                  <div class="eye left-eye"></div>
+                  <div class="eye right-eye"></div>
+                </div>
+                <div class="mouth"></div>
+              </div>
+              <div class="hair"></div>
+            </div>
+            <div class="torso"></div>
+            <div class="arm left-arm"></div>
+            <div class="arm right-arm"></div>
+            <div class="leg left-leg"></div>
+            <div class="leg right-leg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- UI Overlay -->
+    <div class="ui-overlay">
+      <!-- Microphone Status -->
+      <div class="mic-status" id="micStatus">
+        <div class="mic-icon" id="micIcon">🎤</div>
+        <span class="mic-text" id="micText">Click to Start</span>
+      </div>
+      
+      <!-- Command Feedback -->
+      <div class="command-feedback" id="commandFeedback">
+        <div class="feedback-text" id="feedbackText">Say a command...</div>
+      </div>
+      
+      <!-- Command Help -->
+      <div class="command-help">
+        <h3>Voice Commands</h3>
+        <div class="commands-grid">
+          <div class="command-item">
+            <span class="command-emoji">🚶</span>
+            <span class="command-word">walk</span>
+          </div>
+          <div class="command-item">
+            <span class="command-emoji">🏃</span>
+            <span class="command-word">run</span>
+          </div>
+          <div class="command-item">
+            <span class="command-emoji">🛑</span>
+            <span class="command-word">stop</span>
+          </div>
+          <div class="command-item">
+            <span class="command-emoji">⬆️</span>
+            <span class="command-word">jump</span>
+          </div>
+          <div class="command-item">
+            <span class="command-emoji">👋</span>
+            <span class="command-word">hi / bye</span>
+          </div>
+          <div class="command-item">
+            <span class="command-emoji">💃</span>
+            <span class="command-word">dance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="/scripts/main.js"></script>
+</body>
+</html>

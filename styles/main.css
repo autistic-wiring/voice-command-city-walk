@@ -1,0 +1,1644 @@
+/* ============================================
+   Voice Animation Game - Sensory Friendly Styles
+   ============================================ */
+
+:root {
+  /* Calming color palette */
+  --sky-gradient-start: #87CEEB;
+  --sky-gradient-end: #E0F4FF;
+  --sun-color: #FFE45C;
+  --sun-glow: #FFF5B8;
+  --cloud-color: #FFFFFF;
+  --grass-color: #90EE90;
+  --grass-dark: #7DC97D;
+  --street-color: #A0A0A0;
+  --street-line: #FFFFD0;
+  
+  /* Character colors */
+  --skin-color: #FFDAB9;
+  --hair-color: #8B4513;
+  --shirt-color: #6B8DD6;
+  --pants-color: #4A5568;
+  --shoe-color: #2D3748;
+  
+  /* UI colors */
+  --ui-bg: rgba(255, 255, 255, 0.95);
+  --ui-shadow: rgba(0, 0, 0, 0.1);
+  --accent-color: #7C3AED;
+  --accent-light: #A78BFA;
+  --success-color: #10B981;
+  --listening-color: #EF4444;
+  
+  /* Typography */
+  --font-family: 'Nunito', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  overflow: hidden;
+  background: var(--sky-gradient-start);
+}
+
+/* ============================================
+   Main Container
+   ============================================ */
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================================
+   Scene
+   ============================================ */
+
+.scene {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, var(--sky-gradient-start) 0%, var(--sky-gradient-end) 100%);
+  position: relative;
+}
+
+/* Sun */
+.sun {
+  position: absolute;
+  top: 60px;
+  right: 100px;
+  width: 100px;
+  height: 100px;
+  background: var(--sun-color);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 60px var(--sun-glow),
+    0 0 100px var(--sun-color);
+  animation: sunPulse 4s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.95; }
+}
+
+/* Clouds */
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+}
+
+.cloud {
+  position: absolute;
+  background: var(--cloud-color);
+  border-radius: 50px;
+  opacity: 0.9;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: var(--cloud-color);
+  border-radius: 50%;
+}
+
+.cloud-1 {
+  width: 150px;
+  height: 50px;
+  top: 80px;
+  left: 10%;
+  animation: cloudFloat 25s linear infinite;
+}
+
+.cloud-1::before {
+  width: 70px;
+  height: 70px;
+  top: -35px;
+  left: 20px;
+}
+
+.cloud-1::after {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 70px;
+}
+
+.cloud-2 {
+  width: 200px;
+  height: 60px;
+  top: 120px;
+  left: 50%;
+  animation: cloudFloat 30s linear infinite;
+  animation-delay: -10s;
+}
+
+.cloud-2::before {
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  left: 30px;
+}
+
+.cloud-2::after {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: 100px;
+}
+
+.cloud-3 {
+  width: 120px;
+  height: 40px;
+  top: 60px;
+  left: 75%;
+  animation: cloudFloat 20s linear infinite;
+  animation-delay: -5s;
+}
+
+.cloud-3::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 15px;
+}
+
+.cloud-3::after {
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  left: 55px;
+}
+
+@keyframes cloudFloat {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(100vw + 200px)); }
+}
+
+/* Ground - Made wider for infinite scrolling */
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 300%; /* 3x width for seamless loop */
+  height: 200px;
+  will-change: transform;
+}
+
+.street {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  width: 100%; /* Full width of parent (300% of viewport) */
+  height: 100px;
+  background: var(--street-color);
+  border-top: 4px solid #888;
+  border-bottom: 4px solid #888;
+}
+
+.street::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--street-line) 0px,
+    var(--street-line) 40px,
+    transparent 40px,
+    transparent 80px
+  );
+  transform: translateY(-50%);
+}
+
+.grass {
+  position: absolute;
+  left: 0;
+  width: 100%; /* Full width of parent */
+}
+
+.grass-back {
+  bottom: 150px;
+  height: 60px;
+  background: var(--grass-dark);
+}
+
+.grass-front {
+  bottom: 0;
+  height: 50px;
+  background: var(--grass-color);
+}
+
+/* ============================================
+   Character
+   ============================================ */
+
+.character-container {
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%) scale(1.5); /* 1.5x bigger */
+  z-index: 10;
+}
+
+.character {
+  position: relative;
+  width: 80px;
+  height: 160px;
+}
+
+.character-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Head - Profile */
+.head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: var(--skin-color);
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.hair {
+  position: absolute;
+  top: -5px;
+  left: 45%; /* Shifted back for profile */
+  transform: translateX(-50%);
+  width: 55px;
+  height: 35px;
+  background: var(--hair-color);
+  border-radius: 50% 50% 0 0;
+  z-index: 4;
+}
+
+.face {
+  position: absolute;
+  top: 15px;
+  right: -5px; /* Face features moved to right side */
+  width: 25px;
+  height: 30px;
+}
+
+.eyes {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.eye {
+  width: 6px;
+  height: 6px;
+  background: #333;
+  border-radius: 50%;
+  animation: blink 4s infinite;
+}
+
+/* Only show one eye clearly in profile, maybe a hint of the other */
+.left-eye {
+  display: none;
+}
+
+.mouth {
+  position: absolute;
+  bottom: 5px;
+  right: 2px;
+  width: 10px;
+  height: 6px;
+  background: transparent;
+  border-bottom: 2px solid #E57373;
+  border-radius: 0 0 50% 50%;
+}
+
+/* Torso */
+.torso {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px; /* Thinner for profile */
+  height: 50px;
+  background: var(--shirt-color);
+  border-radius: 10px 5px 5px 10px;
+  z-index: 2;
+}
+
+/* Arms */
+.arm {
+  position: absolute;
+  top: 50px;
+  width: 14px;
+  height: 45px;
+  background: var(--shirt-color);
+  border-radius: 7px;
+  z-index: 2;
+  transform-origin: top center;
+  left: 50%; /* Center anchor */
+}
+
+.arm::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: var(--skin-color);
+  border-radius: 50%;
+}
+
+.left-arm {
+  z-index: 1; /* Behind torso */
+  background: #5A7CB6; /* Slightly darker for depth */
+  transform: translateX(-50%) rotate(10deg);
+}
+
+.right-arm {
+  z-index: 3; /* In front of torso */
+  transform: translateX(-50%) rotate(-10deg);
+}
+
+/* Legs */
+.leg {
+  position: absolute;
+  top: 90px;
+  width: 16px;
+  height: 55px;
+  background: var(--pants-color);
+  border-radius: 8px;
+  z-index: 2;
+  transform-origin: top center;
+  left: 50%;
+}
+
+.leg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Shoe centered on leg */
+  transform: translateX(-20%); /* Shift shoe forward a bit */
+  width: 22px;
+  height: 12px;
+  background: var(--shoe-color);
+  border-radius: 10px 10px 5px 5px;
+}
+
+.left-leg {
+  z-index: 1; /* Behind */
+  background: #3A4558; /* Darker */
+  transform: translateX(-50%) rotate(-5deg);
+}
+
+.right-leg {
+  z-index: 2; /* In front */
+  transform: translateX(-50%) rotate(5deg);
+}
+
+/* ============================================
+   Character Animation States (Profile)
+   ============================================ */
+
+/* Idle State */
+.character.idle .left-arm {
+  animation: idleArmLeft 2s ease-in-out infinite;
+}
+.character.idle .right-arm {
+  animation: idleArmRight 2s ease-in-out infinite;
+}
+
+@keyframes idleArmLeft {
+  0%, 100% { transform: translateX(-50%) rotate(5deg); }
+  50% { transform: translateX(-50%) rotate(10deg); }
+}
+@keyframes idleArmRight {
+  0%, 100% { transform: translateX(-50%) rotate(-5deg); }
+  50% { transform: translateX(-50%) rotate(-10deg); }
+}
+
+/* Walk State - Scissor motion */
+.character.walk .left-leg {
+  animation: walkLegBack 0.8s linear infinite;
+}
+.character.walk .right-leg {
+  animation: walkLegFront 0.8s linear infinite;
+}
+.character.walk .left-arm {
+  animation: walkArmBack 0.8s linear infinite;
+}
+.character.walk .right-arm {
+  animation: walkArmFront 0.8s linear infinite;
+}
+.character.walk .character-body {
+  animation: walkBounce 0.4s ease-in-out infinite;
+}
+
+/* Walk Dust Puffs */
+.character.walk::after {
+  content: '💨';
+  position: absolute;
+  bottom: 5px;
+  left: -15px;
+  font-size: 18px;
+  animation: walkDust 0.8s ease-out infinite;
+  opacity: 0.8;
+}
+
+@keyframes walkDust {
+  0% { opacity: 0.8; transform: translateX(0) scale(1); }
+  100% { opacity: 0; transform: translateX(-20px) scale(0.5); }
+}
+
+@keyframes walkLegFront {
+  0% { transform: translateX(-50%) rotate(20deg); }
+  25% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-50%) rotate(-30deg); }
+  75% { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(20deg); }
+}
+@keyframes walkLegBack {
+  0% { transform: translateX(-50%) rotate(-30deg); }
+  25% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-50%) rotate(20deg); }
+  75% { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(-30deg); }
+}
+@keyframes walkArmFront {
+  0% { transform: translateX(-50%) rotate(-20deg); }
+  50% { transform: translateX(-50%) rotate(20deg); }
+  100% { transform: translateX(-50%) rotate(-20deg); }
+}
+@keyframes walkArmBack {
+  0% { transform: translateX(-50%) rotate(20deg); }
+  50% { transform: translateX(-50%) rotate(-20deg); }
+  100% { transform: translateX(-50%) rotate(20deg); }
+}
+
+/* Run State - Exaggerated Scissor + Speed Effects */
+.character.run .left-leg {
+  animation: runLegBack 0.25s linear infinite;
+}
+.character.run .right-leg {
+  animation: runLegFront 0.25s linear infinite;
+}
+.character.run .left-arm {
+  animation: runArmBack 0.25s linear infinite;
+}
+.character.run .right-arm {
+  animation: runArmFront 0.25s linear infinite;
+}
+.character.run .character-body {
+  animation: runBounce 0.125s ease-in-out infinite;
+  transform: skewX(-8deg); /* Lean forward more */
+}
+
+/* Speed Lines Effect */
+.character.run::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  animation: speedLine1 0.15s linear infinite;
+  border-radius: 2px;
+}
+
+.character.run::after {
+  content: '';
+  position: absolute;
+  left: -50px;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: speedLine2 0.2s linear infinite;
+  border-radius: 2px;
+}
+
+/* Speed Dust/Trail Effect on Character Body */
+.character.run .torso::before {
+  content: '';
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+  animation: dustCloud 0.3s ease-out infinite;
+  border-radius: 50%;
+}
+
+@keyframes speedLine1 {
+  0% { opacity: 0; transform: translateY(-50%) translateX(0); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-50%) translateX(-20px); }
+}
+
+@keyframes speedLine2 {
+  0% { opacity: 0; transform: translateY(-50%) translateX(0); }
+  50% { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-50%) translateX(-30px); }
+}
+
+@keyframes dustCloud {
+  0% { opacity: 0.6; transform: scale(0.5) translateX(0); }
+  100% { opacity: 0; transform: scale(1.5) translateX(-15px); }
+}
+
+@keyframes runLegFront {
+  0% { transform: translateX(-50%) rotate(50deg); }
+  50% { transform: translateX(-50%) rotate(-60deg); }
+  100% { transform: translateX(-50%) rotate(50deg); }
+}
+@keyframes runLegBack {
+  0% { transform: translateX(-50%) rotate(-60deg); }
+  50% { transform: translateX(-50%) rotate(50deg); }
+  100% { transform: translateX(-50%) rotate(-60deg); }
+}
+@keyframes runArmFront {
+  0% { transform: translateX(-50%) rotate(-55deg); }
+  50% { transform: translateX(-50%) rotate(55deg); }
+  100% { transform: translateX(-50%) rotate(-55deg); }
+}
+@keyframes runArmBack {
+  0% { transform: translateX(-50%) rotate(55deg); }
+  50% { transform: translateX(-50%) rotate(-55deg); }
+  100% { transform: translateX(-50%) rotate(55deg); }
+}
+
+@keyframes runBounce {
+  0%, 100% { transform: skewX(-8deg) translateY(0); }
+  50% { transform: skewX(-8deg) translateY(-4px); }
+}
+
+/* Stop State - just stand */
+.character.stop .left-arm {
+  transform: translateX(-50%) rotate(5deg);
+  animation: none;
+}
+.character.stop .right-arm {
+  transform: translateX(-50%) rotate(-5deg);
+  animation: none;
+}
+.character.stop .left-leg {
+  transform: translateX(-50%) rotate(-5deg);
+  animation: none;
+}
+.character.stop .right-leg {
+  transform: translateX(-50%) rotate(5deg);
+  animation: none;
+}
+
+/* Jump State */
+.character.jump {
+  animation: jumpMotion 1.2s ease-out forwards;
+}
+.character.jump .left-leg,
+.character.jump .right-leg {
+  animation: jumpLegs 1.2s ease-out forwards;
+}
+
+/* Keep current Jump motion logic but adapt legs */
+@keyframes jumpLegs {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  30% { transform: translateX(-50%) rotate(-30deg); } /* Knees up */
+  50% { transform: translateX(-50%) rotate(-20deg); }
+  100% { transform: translateX(-50%) rotate(0deg); }
+}
+
+/* Main jump motion - character goes up and down */
+@keyframes jumpMotion {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-120px); }
+  40% { transform: translateY(-160px); }
+  60% { transform: translateY(-140px); }
+  100% { transform: translateY(0); }
+}
+
+/* Jump Star Burst Effect */
+.character.jump::before {
+  content: '⭐';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  animation: jumpStars 0.6s ease-out forwards;
+}
+
+.character.jump::after {
+  content: '✨';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  animation: jumpSparkle 0.8s ease-out infinite;
+}
+
+@keyframes jumpStars {
+  0% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.5); }
+  100% { opacity: 0; transform: translateX(-50%) scale(2); }
+}
+
+@keyframes jumpSparkle {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) rotate(0deg); }
+  50% { opacity: 1; transform: translateX(-50%) rotate(180deg); }
+}
+
+/* Wave State - Turn head slightly to verify? Or just wave arm */
+.character.wave .right-arm {
+  animation: waveArmProfile 0.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+.character.wave .head {
+   /* Maybe turn head to face camera for wave */
+   transform: translateX(-50%) rotate(-15deg);
+   transition: transform 0.3s;
+}
+
+@keyframes waveArmProfile {
+  0%, 100% { transform: translateX(-50%) rotate(-120deg); }
+  50% { transform: translateX(-50%) rotate(-150deg); }
+}
+
+/* Wave Heart Effects */
+.character.wave::before {
+  content: '❤️';
+  position: absolute;
+  top: -30px;
+  left: 60%;
+  font-size: 24px;
+  animation: waveHearts 0.8s ease-out infinite;
+}
+
+.character.wave::after {
+  content: '💕';
+  position: absolute;
+  top: -15px;
+  left: 30%;
+  font-size: 20px;
+  animation: waveHearts 0.8s ease-out infinite 0.3s;
+}
+
+@keyframes waveHearts {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.3); }
+}
+
+/* Dance State */
+.character.dance .character-body {
+  animation: danceBody 0.4s ease-in-out infinite;
+}
+.character.dance .left-arm {
+  animation: danceLeftArm 0.4s ease-in-out infinite;
+}
+.character.dance .right-arm {
+  animation: danceRightArm 0.4s ease-in-out infinite;
+}
+
+.character.dance .left-leg {
+  animation: danceLeftLeg 0.2s ease-in-out infinite;
+}
+
+.character.dance .right-leg {
+  animation: danceRightLeg 0.2s ease-in-out infinite;
+}
+
+.character.dance .head {
+  animation: danceHead 0.4s ease-in-out infinite;
+}
+
+/* Dance Party Effects */
+.character.dance::before {
+  content: '🎵';
+  position: absolute;
+  top: -40px;
+  left: 30%;
+  font-size: 28px;
+  animation: danceNotes 0.6s ease-out infinite;
+}
+
+.character.dance::after {
+  content: '🎶';
+  position: absolute;
+  top: -25px;
+  right: 20%;
+  font-size: 24px;
+  animation: danceNotes 0.6s ease-out infinite 0.2s;
+}
+
+@keyframes danceNotes {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  50% { opacity: 1; transform: translateY(-20px) rotate(15deg) scale(1.2); }
+  100% { opacity: 0; transform: translateY(-40px) rotate(-15deg) scale(0.8); }
+}
+
+@keyframes danceBody {
+  0%, 100% { transform: translateX(-5px) rotate(-5deg); }
+  50% { transform: translateX(5px) rotate(5deg); }
+}
+
+@keyframes danceLeftArm {
+  0%, 100% { transform: rotate(-60deg); }
+  50% { transform: rotate(30deg); }
+}
+
+@keyframes danceRightArm {
+  0%, 100% { transform: rotate(60deg); }
+  50% { transform: rotate(-30deg); }
+}
+
+@keyframes danceLeftLeg {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+
+@keyframes danceRightLeg {
+  0%, 100% { transform: rotate(10deg); }
+  50% { transform: rotate(-10deg); }
+}
+
+@keyframes danceHead {
+  0%, 100% { transform: translateX(-50%) rotate(-10deg); }
+  50% { transform: translateX(-50%) rotate(10deg); }
+}
+
+/* Stop State - same as idle but no animation initially */
+.character.stop .left-arm,
+.character.stop .right-arm,
+.character.stop .left-leg,
+.character.stop .right-leg {
+  animation: none;
+  transform: rotate(0deg);
+}
+
+/* ============================================
+   UI Overlay
+   ============================================ */
+
+.ui-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Microphone Status - Hidden (auto-start enabled) */
+.mic-status {
+  display: none;
+}
+
+.mic-status:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 6px 25px var(--ui-shadow);
+}
+
+.mic-icon {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.mic-status.listening .mic-icon {
+  animation: micPulse 1s ease-in-out infinite;
+}
+
+@keyframes micPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.mic-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.mic-status.listening {
+  background: linear-gradient(135deg, #FEE2E2, #FECACA);
+  border: 2px solid var(--listening-color);
+}
+
+.mic-status.listening .mic-text {
+  color: var(--listening-color);
+}
+
+/* Command Feedback */
+.command-feedback {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.command-feedback.visible {
+  opacity: 1;
+  animation: feedbackPop 0.3s ease-out;
+}
+
+@keyframes feedbackPop {
+  0% { transform: translateX(-50%) scale(0.8); }
+  50% { transform: translateX(-50%) scale(1.1); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+.feedback-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Command Help */
+.command-help {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  background: var(--ui-bg);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px var(--ui-shadow);
+}
+
+.command-help h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.commands-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+}
+
+.command-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  background: #F3F4F6;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.command-item:hover {
+  background: #E5E7EB;
+  transform: translateY(-2px);
+}
+
+.command-item.active {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+}
+
+.command-item.active .command-word {
+  color: white;
+}
+
+.command-emoji {
+  font-size: 24px;
+}
+
+.command-word {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+  .commands-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .sun {
+    width: 60px;
+    height: 60px;
+    top: 30px;
+    right: 30px;
+  }
+  
+  .command-help {
+    padding: 15px 20px;
+  }
+  
+  .feedback-text {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .commands-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .mic-status {
+    padding: 10px 18px;
+  }
+  
+  .mic-text {
+    font-size: 14px;
+  }
+}
+
+/* ============================================
+   World Objects - NPCs
+   ============================================ */
+
+.world-object {
+  position: absolute;
+  bottom: 150px;
+  z-index: 5;
+  will-change: transform;
+  transform-origin: bottom center;
+}
+
+/* Scale world objects to match character (1.5x) */
+.dog-container,
+.waving-person-container,
+.stone-container {
+  scale: 1.5;
+}
+
+/* ============================================
+   Dog
+   ============================================ */
+
+.dog-container {
+  left: 0;
+}
+
+.dog {
+  width: 80px;
+  height: 50px;
+  position: relative;
+}
+
+.dog-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.dog-head {
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 25px;
+  height: 25px;
+  background: #8B4513;
+  border-radius: 50% 50% 40% 40%;
+  z-index: 3;
+}
+
+.dog-ear {
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  background: #6B3410;
+  border-radius: 50% 50% 0 0;
+  top: -8px;
+}
+
+.dog-ear.left-ear {
+  left: 2px;
+  transform: rotate(-15deg);
+}
+
+.dog-ear.right-ear {
+  right: 2px;
+  transform: rotate(15deg);
+}
+
+.dog-face {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+
+.dog-eye {
+  width: 5px;
+  height: 5px;
+  background: #333;
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+
+.dog-nose {
+  width: 8px;
+  height: 6px;
+  background: #333;
+  border-radius: 50%;
+  position: absolute;
+  right: -2px;
+  top: 5px;
+}
+
+.dog-torso {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 50px;
+  height: 25px;
+  background: #A0522D;
+  border-radius: 25px 15px 15px 25px;
+  z-index: 2;
+}
+
+.dog-tail {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 20px;
+  height: 8px;
+  background: #8B4513;
+  border-radius: 10px 0 0 10px;
+  transform-origin: right center;
+  animation: tailWag 0.3s ease-in-out infinite;
+}
+
+@keyframes tailWag {
+  0%, 100% { transform: rotate(-20deg); }
+  50% { transform: rotate(20deg); }
+}
+
+.dog-leg {
+  position: absolute;
+  width: 8px;
+  height: 20px;
+  background: #8B4513;
+  border-radius: 4px;
+  transform-origin: top center;
+}
+
+.dog-leg.front-left {
+  right: 15px;
+  top: 30px;
+  z-index: 1;
+}
+
+.dog-leg.front-right {
+  right: 25px;
+  top: 30px;
+  z-index: 3;
+}
+
+.dog-leg.back-left {
+  left: 15px;
+  top: 30px;
+  z-index: 1;
+}
+
+.dog-leg.back-right {
+  left: 25px;
+  top: 30px;
+  z-index: 3;
+}
+
+/* Dog Running Animation */
+.dog-container.running .dog-leg.front-left {
+  animation: dogLegFront 0.2s linear infinite;
+}
+.dog-container.running .dog-leg.front-right {
+  animation: dogLegBack 0.2s linear infinite;
+}
+.dog-container.running .dog-leg.back-left {
+  animation: dogLegBack 0.2s linear infinite;
+}
+.dog-container.running .dog-leg.back-right {
+  animation: dogLegFront 0.2s linear infinite;
+}
+
+@keyframes dogLegFront {
+  0% { transform: rotate(30deg); }
+  50% { transform: rotate(-30deg); }
+  100% { transform: rotate(30deg); }
+}
+
+@keyframes dogLegBack {
+  0% { transform: rotate(-30deg); }
+  50% { transform: rotate(30deg); }
+  100% { transform: rotate(-30deg); }
+}
+
+/* Dog caught player - jumping on them */
+.dog-container.caught {
+  animation: dogJump 0.5s ease-in-out infinite;
+}
+
+@keyframes dogJump {
+  0%, 100% { transform: translateX(var(--dog-x, 0)) translateY(0); }
+  50% { transform: translateX(var(--dog-x, 0)) translateY(-20px); }
+}
+
+/* ============================================
+   Waving Person
+   ============================================ */
+
+.waving-person-container {
+  left: 0;
+}
+
+.waving-person {
+  width: 60px;
+  height: 120px;
+  position: relative;
+}
+
+.wp-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.wp-head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35px;
+  height: 35px;
+  background: #FFDAB9;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.wp-hair {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 25px;
+  background: #2C1810;
+  border-radius: 50% 50% 0 0;
+  z-index: 4;
+}
+
+.wp-face {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25px;
+  height: 20px;
+}
+
+.wp-eye {
+  width: 5px;
+  height: 5px;
+  background: #333;
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  top: 2px;
+}
+
+.wp-smile {
+  width: 12px;
+  height: 6px;
+  border: 2px solid #E57373;
+  border-top: none;
+  border-radius: 0 0 50% 50%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.wp-torso {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 38px;
+  background: #E91E63;
+  border-radius: 8px 8px 4px 4px;
+  z-index: 2;
+}
+
+.wp-arm {
+  position: absolute;
+  top: 35px;
+  width: 10px;
+  height: 35px;
+  background: #E91E63;
+  border-radius: 5px;
+  transform-origin: top center;
+  z-index: 1;
+}
+
+.wp-arm::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: #FFDAB9;
+  border-radius: 50%;
+}
+
+.wp-arm.wave-arm {
+  right: -5px;
+}
+
+.wp-arm.still-arm {
+  left: -5px;
+  transform: rotate(10deg);
+}
+
+.wp-leg {
+  position: absolute;
+  top: 68px;
+  width: 12px;
+  height: 40px;
+  background: #3F51B5;
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.wp-leg.left {
+  left: 12px;
+}
+
+.wp-leg.right {
+  right: 12px;
+}
+
+.wp-leg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-30%);
+  width: 16px;
+  height: 10px;
+  background: #333;
+  border-radius: 8px 8px 4px 4px;
+}
+
+/* Waving Animation */
+.waving-person-container.waving .wp-arm.wave-arm {
+  animation: personWave 0.5s ease-in-out infinite;
+}
+
+@keyframes personWave {
+  0%, 100% { transform: rotate(-120deg); }
+  50% { transform: rotate(-150deg); }
+}
+
+/* ============================================
+   Stone Obstacle
+   ============================================ */
+
+.stone-container {
+  left: 0;
+}
+
+.stone {
+  width: 40px;
+  height: 30px;
+  position: relative;
+}
+
+.stone-body {
+  width: 40px;
+  height: 25px;
+  background: linear-gradient(135deg, #6B7280, #9CA3AF, #6B7280);
+  border-radius: 50% 50% 40% 40%;
+  position: relative;
+  box-shadow: inset -3px -3px 6px rgba(0,0,0,0.3),
+              inset 3px 3px 6px rgba(255,255,255,0.2);
+}
+
+.stone-shadow {
+  position: absolute;
+  bottom: -5px;
+  left: 5px;
+  width: 35px;
+  height: 8px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%;
+}
+
+/* ============================================
+   Character Tripped State
+   ============================================ */
+
+.character.tripped {
+  animation: tripFall 0.3s ease-out forwards;
+}
+
+.character.tripped .character-body {
+  animation: tripSpin 0.3s ease-out forwards;
+}
+
+@keyframes tripFall {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px) rotate(15deg); }
+  100% { transform: translateY(0) rotate(25deg); }
+}
+
+@keyframes tripSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(15deg) translateX(20px); }
+}
+
+/* Stars around head when tripped */
+.character.tripped::before {
+  content: '💫';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  animation: tripStars 0.5s ease-in-out infinite;
+}
+
+@keyframes tripStars {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-50%) rotate(180deg); }
+}
+
+/* ============================================
+   Airplane
+   ============================================ */
+
+.sky-object {
+  position: absolute;
+  z-index: 2;
+  will-change: transform;
+}
+
+.airplane-container {
+  top: 80px;
+}
+
+.airplane {
+  width: 120px;
+  height: 40px;
+  position: relative;
+}
+
+.plane-body {
+  position: absolute;
+  width: 100px;
+  height: 25px;
+  background: linear-gradient(to bottom, #E5E7EB, #F3F4F6, #E5E7EB);
+  border-radius: 25px 10px 10px 25px;
+  top: 8px;
+  left: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.plane-wing {
+  position: absolute;
+  width: 50px;
+  height: 12px;
+  background: linear-gradient(to bottom, #D1D5DB, #9CA3AF);
+  top: 15px;
+  left: 35px;
+  border-radius: 2px 8px 8px 2px;
+}
+
+.plane-tail {
+  position: absolute;
+  width: 20px;
+  height: 25px;
+  background: linear-gradient(to right, #3B82F6, #2563EB);
+  top: 0;
+  left: 0;
+  border-radius: 8px 2px 0 2px;
+  transform: skewX(-15deg);
+}
+
+.plane-windows {
+  position: absolute;
+  width: 60px;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #60A5FA 0px,
+    #60A5FA 6px,
+    transparent 6px,
+    transparent 10px
+  );
+  top: 12px;
+  left: 30px;
+  border-radius: 3px;
+}
+
+.plane-trail {
+  position: absolute;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8));
+  top: 18px;
+  left: 100%;
+  border-radius: 2px;
+  animation: planeTrail 0.3s ease-out infinite;
+}
+
+@keyframes planeTrail {
+  0% { opacity: 0.8; width: 60px; }
+  100% { opacity: 0.3; width: 100px; }
+}
+
+.airplane-container.flying .airplane {
+  animation: planeBob 1s ease-in-out infinite;
+}
+
+@keyframes planeBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ============================================
+   Train
+   ============================================ */
+
+.ground-object {
+  position: absolute;
+  bottom: 200px;
+  z-index: 3;
+  will-change: transform;
+}
+
+.train-container {
+  left: 0;
+}
+
+.train {
+  display: flex;
+  gap: 5px;
+}
+
+.train-engine {
+  width: 80px;
+  height: 60px;
+  position: relative;
+}
+
+.engine-body {
+  position: absolute;
+  width: 70px;
+  height: 35px;
+  background: linear-gradient(to bottom, #EF4444, #DC2626);
+  bottom: 15px;
+  left: 5px;
+  border-radius: 5px 15px 5px 5px;
+}
+
+.engine-cabin {
+  position: absolute;
+  width: 30px;
+  height: 25px;
+  background: linear-gradient(to bottom, #1F2937, #374151);
+  bottom: 35px;
+  right: 10px;
+  border-radius: 5px 5px 0 0;
+}
+
+.engine-cabin::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 12px;
+  background: #60A5FA;
+  top: 5px;
+  left: 5px;
+  border-radius: 2px;
+}
+
+.engine-chimney {
+  position: absolute;
+  width: 12px;
+  height: 20px;
+  background: #1F2937;
+  bottom: 50px;
+  left: 20px;
+  border-radius: 3px 3px 0 0;
+}
+
+.engine-chimney::after {
+  content: '💨';
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  animation: smokeRise 0.5s ease-out infinite;
+}
+
+@keyframes smokeRise {
+  0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-15px); }
+}
+
+.engine-wheels {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.wheel {
+  width: 12px;
+  height: 12px;
+  background: #374151;
+  border-radius: 50%;
+  border: 2px solid #1F2937;
+}
+
+.wheel.big {
+  width: 20px;
+  height: 20px;
+}
+
+.train-car {
+  width: 60px;
+  height: 45px;
+  position: relative;
+}
+
+.car-body {
+  position: absolute;
+  width: 55px;
+  height: 30px;
+  bottom: 12px;
+  left: 2px;
+  border-radius: 5px;
+}
+
+.car1 .car-body {
+  background: linear-gradient(to bottom, #3B82F6, #2563EB);
+}
+
+.car2 .car-body {
+  background: linear-gradient(to bottom, #10B981, #059669);
+}
+
+.car-wheels {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  display: flex;
+  gap: 25px;
+}
+
+.train-container.moving .wheel {
+  animation: wheelSpin 0.2s linear infinite;
+}
+
+@keyframes wheelSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
