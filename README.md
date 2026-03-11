@@ -1,65 +1,92 @@
-# Voice Command City Walk
+# 🎮 Voice Command City Walk
 
-An interactive browser-based animation game controlled by voice commands. Watch your character walk, run, jump, and interact with various objects in a dynamic city environment.
+<p align="center">
+  <strong>AN INTERACTIVE VOICE-CONTROLLED BROWSER GAME</strong>
+</p>
 
-## Features
+<p align="center">
+  <a href="https://github.com/autistic-wiring/voice-command-city-walk/actions"><img src="https://img.shields.io/github/actions/workflow/status/autistic-wiring/voice-command-city-walk/deploy.yml?branch=main&style=for-the-badge" alt="CI status"></a>
+  <a href="https://autistic-wiring.github.io/voice-command-city-walk/"><img src="https://img.shields.io/badge/Live%20Demo-Play%20Now-green?style=for-the-badge&logo=github" alt="Live Demo"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
+  <a href="https://autistic-wiring.github.io/aac-system/donate.html"><img src="https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-orange?style=for-the-badge&logo=buy-me-a-coffee" alt="Buy Me A Coffee"></a>
+</p>
 
-- **Voice Control**: Use your microphone to control the character with voice commands
-- **Dynamic World**: Interactive environment with moving objects including:
-  - Chasing dog
-  - Passing train
-  - Flying airplane
-  - Waving pedestrians
-  - Obstacles to jump over
-- **Smooth Animations**: CSS-based character animations for walking, running, jumping, dancing, and tripping
-- **Parallax Scrolling**: Multi-layer background with clouds and distant scenery
-- **Collision Detection**: Precise foot-to-edge collision system for realistic interactions
+**Voice Command City Walk** is an interactive browser-based animation game controlled entirely by voice commands. Watch your character walk, run, jump, and interact with various objects in a dynamic city environment — no keyboard or mouse required!
 
-## Voice Commands
+Built for accessibility and fun, this game demonstrates the power of voice control in web applications.
 
-- **walk** - Character starts walking
-- **run** - Character runs faster
-- **stop** - Character stops moving
-- **jump** - Character jumps (useful for avoiding obstacles)
-- **hi / bye** - Character waves
-- **dance** - Character performs a dance animation
+[GitHub](https://github.com/autistic-wiring/voice-command-city-walk) · [Live Demo](https://autistic-wiring.github.io/voice-command-city-walk/) · [Support Us](https://autistic-wiring.github.io/aac-system/donate.html)
 
-## Installation
+---
 
-1. Clone the repository:
+## 🎤 Voice Commands
+
+| Command | Action |
+|---------|--------|
+| **walk** | Character starts walking |
+| **run** | Character runs faster |
+| **stop** | Character stops moving |
+| **jump** | Character jumps (avoid obstacles!) |
+| **hi / bye** | Character waves at pedestrians |
+| **dance** | Character performs a dance animation |
+
+---
+
+## ✨ Features
+
+- **🎙️ Voice Control** — Use your microphone to control the character with natural voice commands
+- **🌍 Dynamic World** — Interactive environment with moving objects:
+  - 🐕 Chasing dog
+  - 🚂 Passing train
+  - ✈️ Flying airplane
+  - 👋 Waving pedestrians
+  - 🚧 Obstacles to jump over
+- **🎨 Smooth Animations** — CSS-based character animations for walking, running, jumping, dancing, and tripping
+- **☁️ Parallax Scrolling** — Multi-layer background with clouds and distant scenery
+- **🎯 Collision Detection** — Precise foot-to-edge collision system for realistic interactions
+
+---
+
+## 🚀 Quick Start
+
+### Play Online
+Visit the **[Live Demo](https://autistic-wiring.github.io/voice-command-city-walk/)** — no installation required!
+
+### Local Development
+
+**Runtime:** Node ≥18
+
 ```bash
 git clone https://github.com/autistic-wiring/voice-command-city-walk.git
 cd voice-command-city-walk
-```
 
-2. Install dependencies:
-```bash
 npm install
-```
 
-3. Start the development server:
-```bash
 npm run dev
 ```
 
-4. Open your browser and navigate to the local server URL (typically `http://localhost:5173`)
+Open your browser to `http://localhost:5173`
 
-## Technical Details
+---
+
+## 🏗️ Technical Details
 
 ### Architecture
 
-- **Vanilla JavaScript**: No framework dependencies for lightweight performance
-- **Modular Design**: Separate modules for character control, world management, and voice recognition
-- **Centralized Spawning System**: Objects spawn and despawn smoothly off-screen
-- **Real-time Animation**: Delta-time based animation updates for smooth 60fps performance
+- **Vanilla JavaScript** — No framework dependencies for lightweight performance
+- **Modular Design** — Separate modules for character control, world management, and voice recognition
+- **Centralized Spawning System** — Objects spawn and despawn smoothly off-screen
+- **Real-time Animation** — Delta-time based animation updates for smooth 60fps performance
 
 ### Key Files
 
-- `scripts/main.js` - Game initialization and voice command processing
-- `scripts/character.js` - Character state management and animation control
-- `scripts/world.js` - World objects, collision detection, and environmental interactions
-- `scripts/voice.js` - Voice recognition and command parsing
-- `styles/main.css` - All animations and visual styling
+| File | Purpose |
+|------|---------|
+| `scripts/main.js` | Game initialization and voice command processing |
+| `scripts/character.js` | Character state management and animation control |
+| `scripts/world.js` | World objects, collision detection, and environmental interactions |
+| `scripts/voice.js` | Voice recognition and command parsing |
+| `styles/main.css` | All animations and visual styling |
 
 ### Collision System
 
@@ -69,17 +96,24 @@ The game uses a foot-to-edge collision detection system for realistic interactio
 - Collision triggers only when visual contact is made
 - Debug logging available for position verification
 
-## Browser Compatibility
+---
 
-- Chrome/Edge (recommended) - Full Web Speech API support
-- Firefox - Requires `media.webspeech.recognition.enable` flag
-- Safari - Limited support for voice recognition
+## 🌐 Browser Compatibility
 
-## Development
+| Browser | Support |
+|---------|---------|
+| Chrome/Edge | ✅ Full Web Speech API support (recommended) |
+| Firefox | ⚠️ Requires `media.webspeech.recognition.enable` flag |
+| Safari | ⚠️ Limited support for voice recognition |
+
+---
+
+## 🛠️ Development
 
 ### Debug Mode
 
 Access debug commands via browser console:
+
 ```javascript
 window.game.command("run")  // Inject commands without voice
 window.game.debug()         // View current game state
@@ -89,10 +123,25 @@ window.game.debug()         // View current game state
 
 The project includes Playwright integration for automated testing of collision detection and animations.
 
-## License
+---
 
-MIT
+## ❤️ Support Us
 
-## Contributing
+This project is part of the **Autistic Wiring** initiative, dedicated to creating free, accessible tools and games for the autistic community.
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+If you'd like to support ongoing development:
+
+<p align="center">
+  <a href="https://autistic-wiring.github.io/aac-system/donate.html" target="_blank">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;">
+  </a>
+  <a href="https://autistic-wiring.github.io/aac-system/donate.html" target="_blank">
+    <img src="https://img.shields.io/badge/Donate-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="Donate with PayPal" style="height: 60px !important;width: 217px !important;">
+  </a>
+</p>
+
+---
+
+## 📄 License
+
+MIT — Contributions are welcome! Please feel free to submit a Pull Request.
