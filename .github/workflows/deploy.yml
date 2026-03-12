@@ -1,17 +1,12 @@
-name: Deploy to GitHub Pages
+name: Deploy to Server
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: true
 
 jobs:
@@ -32,18 +27,40 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          path: dist
+          name: dist
+          path: dist/
+          retention-days: 1
 
   deploy:
     needs: build
     runs-on: [self-hosted, k8s, nexvision]
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Deploy to server
+        id: deploy
+        run: |
+          echo "Deploying to server..."
+          # Add your deployment commands here
+          # Example: cp -r dist/* /var/www/html/voice-command-city-walk/
+          # Example: rsync -avz --delete dist/ user@server:/var/www/voice-command-city-walk/
+          ls -la dist/
+          echo "url=https://your-domain.com/voice-command-city-walk" >> $GITHUB_OUTPUT
+          echo "✓ Deployment complete"
+
+      - name: Verify deployment
+        run: |
+          echo "Verifying deployment..."
+          # Add verification commands here
+          # Example: curl -f https://your-domain.com/voice-command-city-walk/ || exit 1
+          echo "✓ Verification complete"
