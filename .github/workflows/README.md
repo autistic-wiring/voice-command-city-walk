@@ -24,6 +24,19 @@ Automatically deploys the built site to GitHub Pages:
 1. Go to Settings → Pages
 2. Set Source to "GitHub Actions"
 
+### 2b. Deploy to Self-Hosted Server (`deploy-self-hosted.yml`)
+**Triggers:** Push to `main`, Manual dispatch
+
+Deploys to your own server using a self-hosted runner:
+- Builds the project with Vite
+- Downloads artifacts on self-hosted runner
+- Deploys to your server
+
+**Setup required:**
+1. Configure a self-hosted runner for this repo
+2. Update the deploy step with your actual deployment commands
+3. Set `runs-on: self-hosted` to use your runner
+
 ### 3. Playwright Tests (`playwright.yml`)
 **Triggers:** Push to `main`/`develop`, Pull requests to `main`, Manual dispatch
 
