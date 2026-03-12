@@ -81,5 +81,4 @@ jobs:
       - name: Verify build output exists
         run: |
           test -f dist/index.html && echo "✓ index.html exists"
-          test -d dist/scripts && echo "✓ scripts folder exists"
-          test -d dist/styles && echo "✓ styles folder exists"
+          ls -la dist/

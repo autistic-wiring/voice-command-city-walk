@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# IMPORTANT: You must enable GitHub Pages in repo settings first!
+# Go to Settings → Pages → Source: GitHub Actions
+
 permissions:
   contents: read
   pages: write
